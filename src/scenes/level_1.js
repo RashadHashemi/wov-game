@@ -9,6 +9,9 @@ class Level_1 extends Level_Base {
         super('Level_1');
     }
 
+    init() {
+    }
+
     preload() {
         super.preload();
         
@@ -148,35 +151,36 @@ class Level_1 extends Level_Base {
         ground10_4.setStatic(true);
     }
 
-    class chooseGravity extends Phaser.Scene {
-        constructor() {
-            super({ key: 'chooseGravity' });
-        }
+}
 
-        create() {
-            // Create the slider bar
-            let sliderBar = this.add.graphics();
-            sliderBar.fillStyle(0xaaaaaa);
-            sliderBar.fillRect(100, 100, 200, 20);
+class chooseGravity extends Phaser.Scene {
+    constructor() {
+        super({ key: 'chooseGravity' });
+    }
 
-            // Create the slider handle
-            let sliderHandle = this.add.graphics();
-            sliderHandle.fillStyle(0xffffff);
-            sliderHandle.fillRect(100, 100, 20, 20);
-            sliderHandle.setInteractive();
-            sliderHandle.setData('value', 0);
+    create() {
+        // Create the slider bar
+        let sliderBar = this.add.graphics();
+        sliderBar.fillStyle(0xaaaaaa);
+        sliderBar.fillRect(100, 100, 200, 20);
 
-            // Enable dragging on the slider handle
-            this.input.setDraggable(sliderHandle);
+        // Create the slider handle
+        let sliderHandle = this.add.graphics();
+        sliderHandle.fillStyle(0xffffff);
+        sliderHandle.fillRect(100, 100, 20, 20);
+        sliderHandle.setInteractive();
+        sliderHandle.setData('value', 0);
 
-            // When the slider handle is dragged, update its position and the gravity
-            this.input.on('drag', (pointer, gameObject, dragX, dragY) => {
-                let newValue = Phaser.Math.Clamp(dragX, 100, 300);
-                gameObject.x = newValue;
-                gameObject.setData('value', (newValue - 100) / 200);
-                this.physics.world.gravity.y = gameObject.getData('value') * 1000; // Adjust as needed
-            });
-        }
+        // Enable dragging on the slider handle
+        this.input.setDraggable(sliderHandle);
+
+        // When the slider handle is dragged, update its position and the gravity
+        this.input.on('drag', (pointer, gameObject, dragX, dragY) => {
+            let newValue = Phaser.Math.Clamp(dragX, 100, 300);
+            gameObject.x = newValue;
+            gameObject.setData('value', (newValue - 100) / 200);
+            this.physics.world.gravity.y = gameObject.getData('value') * 1000; // Adjust as needed
+        });
     }
 }
 
